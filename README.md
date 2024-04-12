@@ -20,7 +20,7 @@ export POSTMAN_API_KEY=PMAK_your_key
 
 ## Usage
 
-The (postmanSecretScannerAPI.js)[postmanSecretScannerAPI.js] command receives the following arguments:
+The [postmanSecretScannerAPI.js](postmanSecretScannerAPI.js) command receives the following arguments:
 
 ```shell
 ./postmanSecretScannerAPI.js --workspace <workspaceId> --operation <operation> [--secretIds <secretIds>] [--status <status>] [--limit <limit=10>]
