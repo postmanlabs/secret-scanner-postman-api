@@ -2,17 +2,17 @@
 
 > This code is part of a blog post and is **not** actively maintained by Postman.
 
-A command line utility to manage Postman's [Secret Scanner](https://learning.postman.com/docs/administration/managing-your-team/secret-scanner) entries using the Postman API.
+A command line utility to manage Postman's [Secret Scanner](https://learning.postman.com/docs/administration/managing-your-team/secret-scanner) entries using the Postman API. This code demonstrates how to use the [Postman API](https://www.postman.com/postman/workspace/postman-public-workspace/collection/12959542-c8142d51-e97c-46b6-bd77-52bb66712c9a) to list and resolve exposed secrets in a specific workspace.
 
 ## Purpose
 
-This code demonstrates how to use the [Postman API](https://www.postman.com/postman/workspace/postman-public-workspace/collection/12959542-c8142d51-e97c-46b6-bd77-52bb66712c9a) to list and resolve exposed secrets in a specific workspace.
-
-The goal of this repository is to demonstrate how you can use Postman's [Secret Scanner](https://www.postman.com/postman/workspace/postman-public-workspace/folder/12959542-129b53d2-77f7-4593-89d5-a5a600e9d80f) endpoints to list exposed secrets in a workspace and optionally resolve them in batches, instead of using the UI and manually resolving each exposed secret.
+The code in this repository demonstrates how to use Postman's [Secret Scanner](https://www.postman.com/postman/workspace/postman-public-workspace/folder/12959542-129b53d2-77f7-4593-89d5-a5a600e9d80f) endpoints to programmatically list a workspace's exposed secrets and resolve them in batches.
 
 To do this, we created a [small Postman API wrapper](api/apiClient.js) that enables users to list and resolve secrets in a workspace. We also created the [postmanSecretScannerAPI.js](postmanSecretScannerAPI.js) JavaScript file that can be executed as a shell script.
 
-> **NOTE:** You need a valid [Postman API key](https://learning.postman.com/docs/developer/postman-api/authentication/) saved in an environment variable called `POSTMAN_API_KEY` to execute the command.
+### Getting started
+
+You will need a valid [Postman API key](https://learning.postman.com/docs/developer/postman-api/authentication/) saved as an environment variable called `POSTMAN_API_KEY` to execute the command. Once you have your key, run the following command:
 
 ```shell
 export POSTMAN_API_KEY=PMAK_your_key
@@ -34,7 +34,7 @@ The [postmanSecretScannerAPI.js](postmanSecretScannerAPI.js) command receives th
 | `status`      | The status to set for the secrets: `FALSE_POSITIVE`, `REVOKED`, or `ACCEPTED_RISK`. This is required for the `resolve` operation. |
 | `limit`       | Optional. The maximum number of secrets to list in the table. Note that each secret can be detected in several locations. For each secret displayed, an additional API request is performed. This value defaults to `10`. |
 
-# Example of a list operation
+# List operation example
 
 ```shell
 ./postmanSecretScannerAPI.js --workspaceId 51679e9a-b94f-4ac1-b1c1-7a8d035436cf --operation list --limit 5
@@ -64,7 +64,7 @@ The `location` column values are links to the Postman resource (for example, a r
 
 Notice for each secret, additional API requests are performed to retrieve the locations. Take into account this, as the Postman API has rate and usage limits.
 
-# Example of resolve operation
+# Resolve operation example
 
 ```shell
 ./postmanSecretScannerAPI.js --workspaceId 51679e9a-b94f-4ac1-b1c1-7a8d035436cf --operation resolve --secretIds NjcxNTY2Ng==,NjYyMzU4OA== --status ACCEPTED_RISK
